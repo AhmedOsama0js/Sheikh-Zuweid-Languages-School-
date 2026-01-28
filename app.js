@@ -10,7 +10,6 @@ const gelosError = document.querySelector("#gelosError");
 const studentName = document.querySelector("#studentName");
 const subjectsTableBody = document.querySelector("#subjectsTableBody");
 const totalScoreCell = document.querySelector("#totalScoreCell");
-const btnDownload = document.querySelector("#btnDownload");
 const btnPrint = document.querySelector("#btnPrint");
 
 let database = null;
@@ -45,47 +44,6 @@ const clearErrors = () => {
 // Print Logic
 btnPrint.addEventListener("click", () => {
   window.print();
-});
-
-// Download Logic
-btnDownload.addEventListener("click", () => {
-  if (typeof html2canvas === 'undefined') {
-    alert("عذراً، لم يتم تحميل مكتبة التصوير بالشكل الصحيح. يرجى التأكد من اتصال الإنترنت.");
-    return;
-  }
-
-  const card = document.querySelector("#resultsSection > div");
-  if (!card) return;
-
-  btnDownload.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري المعالجة...`;
-  btnDownload.disabled = true;
-
-  html2canvas(card, {
-    scale: 2,
-    logging: false,
-    useCORS: false,
-    backgroundColor: "#ffffff",
-    windowWidth: card.scrollWidth,
-    windowHeight: card.scrollHeight
-  }).then(canvas => {
-    try {
-      const link = document.createElement("a");
-      link.download = `نتيجة_${studentName.textContent || 'الطالب'}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-
-      btnDownload.innerHTML = `<i class="fa-solid fa-download"></i> تحميل كصورة`;
-      btnDownload.disabled = false;
-    } catch (e) {
-      console.error("Canvas toDataURL error:", e);
-      throw new Error("Security restriction");
-    }
-  }).catch(err => {
-    console.error("Download execution error:", err);
-    alert("تنبيه: ميزة 'تحميل كصورة' تتطلب تشغيل الموقع عبر (Live Server) نظراً لقيود الأمان في المتصفح. يمكنك استخدام زر 'الطباعة' كبديل مباشر ومضمون.");
-    btnDownload.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> فشل التحميل`;
-    btnDownload.disabled = false;
-  });
 });
 
 // Search Logic
@@ -139,7 +97,7 @@ const subjectConfig = {
   "Health_education": { label: "التربية الصحية", icon: "fa-heart-pulse" },
   "Sciences": { label: "العلوم", icon: "fa-flask-vial" },
   "Social_Studies": { label: "الدراسات الاجتماعية", icon: "fa-earth-africa" },
-  "Professional_skills": { label: "المهارات المهنية", icon: "fa-screwdriver-wrench" },
+  "Professional_skills": { label: "الهارات المهنية", icon: "fa-screwdriver-wrench" },
   "technology": { label: "التكنولوجيا", icon: "fa-laptop-code" },
   "art": { label: "التربية الفنية", icon: "fa-palette" }
 };

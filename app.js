@@ -29,11 +29,14 @@ const init = async () => {
 // Error Handlers
 const showError = (el, msg) => {
   el.textContent = msg;
-  el.animate([
-    { transform: 'translateX(-5px)' },
-    { transform: 'translateX(5px)' },
-    { transform: 'translateX(0)' }
-  ], { duration: 200, iterations: 3 });
+  el.animate(
+    [
+      { transform: "translateX(-5px)" },
+      { transform: "translateX(5px)" },
+      { transform: "translateX(0)" },
+    ],
+    { duration: 200, iterations: 3 },
+  );
 };
 
 const clearErrors = () => {
@@ -73,33 +76,39 @@ btnSearch.addEventListener("click", () => {
     return;
   }
 
-  const student = schoolYear.find(s => s.Student_ID == idValue);
+  const student = schoolYear.find((s) => s.Student_ID == idValue);
 
   if (student) {
     renderCard(student);
   } else {
-    showError(gelosError, "عفواً، رقم الجلوس غير صحيح أو غير موجود في هذا الصف");
+    showError(
+      gelosError,
+      "عفواً، رقم الجلوس غير صحيح أو غير موجود في هذا الصف",
+    );
     resultsSection.classList.add("hidden");
   }
 });
 
 // Dictionary for subject labels and icons
 const subjectConfig = {
-  "Arabic": { label: "اللغة العربية", icon: "fa-book" },
-  "mathematics": { label: "الرياضيات", icon: "fa-calculator" },
-  "english": { label: "اللغة الإنجليزية", icon: "fa-language" },
-  "Multidisciplinary": { label: "اكتشف (المتعدد)", icon: "fa-puzzle-piece" },
-  "Religious_Education": { label: "التربية الدينية", icon: "fa-mosque" },
-  "physical_education": { label: "التربية الرياضية", icon: "fa-person-running" },
-  "Tokatsu_activities": { label: "أنشطة التوكاسو", icon: "fa-users-gear" },
-  "connet_plus": { label: "مستوي رفيع انجليزي", icon: "fa-plus-circle" },
-  "connect_plus": { label: "مستوي رفيع انجليزي", icon: "fa-plus-circle" },
-  "Health_education": { label: "التربية الصحية", icon: "fa-heart-pulse" },
-  "Sciences": { label: "العلوم", icon: "fa-flask-vial" },
-  "Social_Studies": { label: "الدراسات الاجتماعية", icon: "fa-earth-africa" },
-  "Professional_skills": { label: "الهارات المهنية", icon: "fa-screwdriver-wrench" },
-  "technology": { label: "التكنولوجيا", icon: "fa-laptop-code" },
-  "art": { label: "التربية الفنية", icon: "fa-palette" }
+  Arabic: { label: "اللغة العربية", icon: "fa-book" },
+  mathematics: { label: "الرياضيات", icon: "fa-calculator" },
+  english: { label: "اللغة الإنجليزية", icon: "fa-language" },
+  Multidisciplinary: { label: "اكتشف (المتعدد)", icon: "fa-puzzle-piece" },
+  Religious_Education: { label: "التربية الدينية", icon: "fa-mosque" },
+  physical_education: { label: "التربية الرياضية", icon: "fa-person-running" },
+  Tokatsu_activities: { label: "أنشطة التوكاسو", icon: "fa-users-gear" },
+  connet_plus: { label: "مستوي رفيع انجليزي", icon: "fa-plus-circle" },
+  connect_plus: { label: "مستوي رفيع انجليزي", icon: "fa-plus-circle" },
+  Health_education: { label: "التربية البدنية", icon: "fa-heart-pulse" },
+  Sciences: { label: "العلوم", icon: "fa-flask-vial" },
+  Social_Studies: { label: "الدراسات الاجتماعية", icon: "fa-earth-africa" },
+  Professional_skills: {
+    label: "الهارات المهنية",
+    icon: "fa-screwdriver-wrench",
+  },
+  technology: { label: "التكنولوجيا", icon: "fa-laptop-code" },
+  art: { label: "التربية الفنية", icon: "fa-palette" },
 };
 
 // Render Table Results
@@ -108,7 +117,9 @@ const renderCard = (data) => {
   studentName.textContent = data.name;
 
   const excludeKeys = ["id", "name", "Student_ID", "total"];
-  const subjectKeys = Object.keys(data).filter(key => !excludeKeys.includes(key));
+  const subjectKeys = Object.keys(data).filter(
+    (key) => !excludeKeys.includes(key),
+  );
 
   subjectsTableBody.innerHTML = subjectKeys
     .map((key, i) => {
@@ -129,7 +140,8 @@ const renderCard = (data) => {
         </td>
       </tr>
     `;
-    }).join('');
+    })
+    .join("");
 
   const totalVal = data.total;
   if (totalVal !== undefined) {
@@ -138,7 +150,7 @@ const renderCard = (data) => {
     totalScoreCell.textContent = "-";
   }
 
-  resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
 function animateTotal(el, target) {

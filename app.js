@@ -10,6 +10,7 @@ const gelosError = document.querySelector("#gelosError");
 const studentName = document.querySelector("#studentName");
 const subjectsTableBody = document.querySelector("#subjectsTableBody");
 const totalScoreCell = document.querySelector("#totalScoreCell");
+const gradeTotalLabel = document.querySelector("#gradeTotalLabel");
 const btnPrint = document.querySelector("#btnPrint");
 
 let database = null;
@@ -148,6 +149,20 @@ const renderCard = (data) => {
     animateTotal(totalScoreCell, parseFloat(totalVal));
   } else {
     totalScoreCell.textContent = "-";
+  }
+
+  // Set Total Score Description based on grade
+  const currentGrade = gradeSelect.value;
+  let maxScore = "0";
+
+  if (["firest", "sconed", "third"].includes(currentGrade)) {
+    maxScore = "300";
+  } else if (["fourth", "fifth", "Sixth"].includes(currentGrade)) {
+    maxScore = "500";
+  }
+
+  if (gradeTotalLabel) {
+    gradeTotalLabel.textContent = `المجموع الكلي للمواد الأساسية: ${maxScore}`;
   }
 
   resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
